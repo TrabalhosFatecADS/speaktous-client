@@ -47,7 +47,6 @@ public class HTTPService extends AsyncTask<Void,Void, Pessoa> {
 
         Pessoa pessoa = gson.fromJson(resposta.toString(),Pessoa.class);
 
-
         return pessoa;
     }
 
