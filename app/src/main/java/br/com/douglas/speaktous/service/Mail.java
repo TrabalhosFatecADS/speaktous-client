@@ -9,7 +9,7 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Date;
 import java.util.Properties;
 
-public class Main extends Authenticator {
+public class Mail extends Authenticator {
 
     private String _user;
     private String _pass;
@@ -34,7 +34,7 @@ public class Main extends Authenticator {
     private Multipart _multipart;
 
 
-    public Main() {
+    public Mail() {
         _host = "smtp.umbler.com";
         _port = "587"; // porta de envio, geralmente 587, 465 ou em último caso a 25
         _sport = "587"; // porta socket padrão, mesmas instruções anteriores
