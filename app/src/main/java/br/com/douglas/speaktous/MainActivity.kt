@@ -32,7 +32,7 @@ open class MainActivity : AppCompatActivity() {
                 val retorno = service.execute().get()
 
                 if(retorno != null && login.toString() == retorno.user && senha.toString() == retorno.passwd){
-                    alert("Login Realizado com sucess!!")
+                    alert("Login Realizado com sucesso!!")
                 }else{
                     alert("Usuario ou Senha não conferem")
                 }

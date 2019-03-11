@@ -43,6 +43,12 @@ public class HTTPService extends AsyncTask<Void,Void, Pessoa> {
             e.printStackTrace();
         }
 
+        /*
+            Product product = new Product(1, "Playstation 4", new Date(), 499.99);
+            Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+            String result = gson.toJson(product);
+         */
+
         Gson gson = new Gson();
 
         Pessoa pessoa = gson.fromJson(resposta.toString(),Pessoa.class);

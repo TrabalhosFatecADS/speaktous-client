@@ -10,6 +10,6 @@ class Pessoa: Serializable{
     var user: String? = null
     var passwd: String? = null
     var email: String? = null
-    var dtcadastro: Calendar? = null
+    var dtcadastro: Date? = null
 
 }
