@@ -3,4 +3,5 @@
     <string name="usuario">Usuario</string>
     <string name="senha">Senha</string>
     <string name="botao">Login</string>
+    <string name="cadastro">Cadastro</string>
 </resources>
