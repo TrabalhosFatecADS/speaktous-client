@@ -10,6 +10,9 @@ import android.widget.Toast
 import br.com.douglas.speaktous.service.HTTPService
 import android.os.AsyncTask.execute
 import java.util.concurrent.ExecutionException
+import android.content.Intent
+
+
 
 
 open class MainActivity : AppCompatActivity() {
@@ -33,6 +36,8 @@ open class MainActivity : AppCompatActivity() {
 
                 if(retorno != null && login.toString() == retorno.user && senha.toString() == retorno.passwd){
                     alert("Login Realizado com sucesso!!")
+                    val secondActivity = Intent(this, Master::class.java)
+                    startActivity(secondActivity)
                 }else{
                     alert("Usuario ou Senha não conferem")
                 }
