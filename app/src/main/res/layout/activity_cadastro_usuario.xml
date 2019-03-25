@@ -7,4 +7,75 @@
         android:layout_height="match_parent"
         tools:context=".CadastroUsuario">
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="395dp"
+            android:layout_height="715dp" tools:layout_editor_absoluteY="8dp" tools:layout_editor_absoluteX="8dp">
+        <TextView
+                android:text="@string/nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvNome"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Nome"
+                android:ems="10"
+                android:id="@+id/etNome"/>
+        <TextView
+                android:text="@string/userCad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvUser"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Usuario"
+                android:ems="10"
+                android:id="@+id/etUser"/>
+        <TextView
+                android:text="@string/senhaCad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSenha"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/etSenha"/>
+        <TextView
+                android:text="@string/confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView6"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/etConfirm"/>
+        <TextView
+                android:text="@string/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvEmail"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/etEmail"/>
+        <Button
+                android:text="@string/salva"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btSalva"/>
+        <Button
+                android:text="@string/volta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btVolta"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -4,4 +4,12 @@
     <string name="senha">Senha</string>
     <string name="botao">Login</string>
     <string name="cadastro">Cadastro</string>
+    <string name="nome">Nome</string>
+    <string name="user">Usuario</string>
+    <string name="userCad">Usuario</string>
+    <string name="senhaCad">Senha</string>
+    <string name="confirm">Confirma Senha</string>
+    <string name="email">E-mail</string>
+    <string name="salva">Salva</string>
+    <string name="volta">Volta</string>
 </resources>

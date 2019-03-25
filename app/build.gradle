@@ -36,9 +36,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.android.support:design:28.0.0'
 
-    // https://mvnrepository.com/artifact/javax.mail/mail
-    compile group: 'javax.mail', name: 'mail', version: '1.4'
-    // https://mvnrepository.com/artifact/javax.mail/javax.mail-api
-    compile group: 'javax.mail', name: 'javax.mail-api', version: '1.6.0'
 
 }

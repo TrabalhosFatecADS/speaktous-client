@@ -12,4 +12,6 @@ class Pessoa: Serializable{
     var email: String? = null
     var dtcadastro: Date? = null
 
+    //teste github
+
 }
