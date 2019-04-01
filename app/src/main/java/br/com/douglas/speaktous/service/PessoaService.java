@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
 
 public class PessoaService extends AsyncTask<Void,Void, Pessoa> {
 
@@ -37,11 +36,10 @@ public class PessoaService extends AsyncTask<Void,Void, Pessoa> {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected Pessoa doInBackground(Void... voids) {
-
+        Pessoa pessoa = new Pessoa();
         if (operacao == 1) {
-            Pessoa pessoa = new Pessoa();
-            pessoa.setNome(nome);
-            pessoa.setUser(user);
+            //pessoa.setNome(nome);
+            //pessoa.setUser(user);
             pessoa.setPasswd(passwd);
             pessoa.setEmail(email);
             pessoa.setDtcadastro(dtcadastro);
@@ -51,41 +49,11 @@ public class PessoaService extends AsyncTask<Void,Void, Pessoa> {
                 e.printStackTrace();
             }
         }
-        return null;
+        return pessoa;
     }
-
-
-
-    private String post(Pessoa pessoa) throws IOException {
-
-        URL url = new URL("http://192.168.102.102:8080/pessoa/");
-
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("POST");
-
-        connection.setRequestProperty("Content-type", "application/json");
-        connection.setRequestProperty("Accept", "application/json");
-
-        connection.setDoOutput(true);
-
-        //StringBuilder resposta = new StringBuilder();
-        Gson gson = new Gson();
-
-        String strPessoa = gson.toJson(pessoa, Pessoa.class);    //fromJson(pessoa.toString(),Pessoa.class);
-
-        //PrintStream printStream = new PrintStream(connection.getOutputStream());
-        //printStream.println(strPessoa);
-        byte[] postDataBytes = strPessoa.toString().getBytes("UTF-8");
-        connection.getOutputStream().write(postDataBytes);
-        connection.connect();
-
-        return new Scanner(connection.getInputStream()).next();
-    }
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public String sendPost(Pessoa pessoa) throws MinhaException {
+    public int sendPost(Pessoa pessoa) throws MinhaException {
 
         try {
             // Cria um objeto HttpURLConnection:
@@ -111,10 +79,8 @@ public class PessoaService extends AsyncTask<Void,Void, Pessoa> {
                     outputStream.write(gson.toJson(pessoa, Pessoa.class).getBytes("UTF-8"));
                 }
 
-                // Caso você queira usar o código HTTP para fazer alguma coisa, descomente esta linha.
-                //int response = request.getResponseCode();
-
-                return readResponse(request);
+                // Retorno da operação 200 sucesso
+                return request.getResponseCode();
             } finally {
                 request.disconnect();
             }

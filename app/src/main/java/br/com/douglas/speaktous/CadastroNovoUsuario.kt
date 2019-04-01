@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.*
 import br.com.douglas.speaktous.service.PessoaService
+import java.math.BigInteger
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutionException
@@ -70,9 +73,15 @@ open class CadastroNovoUsuario : AppCompatActivity() {
                 val df = SimpleDateFormat("dd/MM/yyyy")
                 val dtHoje = df.format(todaysDate)
 
-                val poessoaService = PessoaService(null,"nome", "user", txtSenha.toString(), txtEmail.toString(), dtHoje,1)
+                val poessoaService = PessoaService(null,"nome", "user", getMd5(txtSenha.toString()), txtEmail.toString(), dtHoje,1)
 
                 poessoaService.execute()
+
+                alert("Cadastro concluido com sucesso!")
+
+                val chamaTela = Intent(this, MainActivity::class.java)
+                startActivity(chamaTela)
+
 
             }catch (e: ExecutionException){
                 e.printStackTrace()
@@ -84,6 +93,27 @@ open class CadastroNovoUsuario : AppCompatActivity() {
 
         }
     }
+
+
+    fun getMd5(input: String): String {
+        try {
+
+            val md = MessageDigest.getInstance("MD5")
+
+            val messageDigest = md.digest(input.toByteArray())
+
+            val no = BigInteger(1, messageDigest)
+
+            var hashtext = no.toString(16)
+            while (hashtext.length < 32) {
+                hashtext = "0$hashtext"
+            }
+            return hashtext
+        } catch (e: NoSuchAlgorithmException) {
+            throw RuntimeException(e)
+        }
+    }
+
 
 
     fun alert(s: String) {
