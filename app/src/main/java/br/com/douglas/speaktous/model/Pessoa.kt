@@ -1,7 +1,7 @@
 package br.com.douglas.speaktous.model
 
 import java.io.Serializable
-import java.util.*
+
 
 class Pessoa: Serializable{
 
@@ -10,7 +10,7 @@ class Pessoa: Serializable{
     var user: String? = null
     var passwd: String? = null
     var email: String? = null
-    var dtcadastro: Date? = null
+    var dtcadastro: String? = null
 
     //teste github
 

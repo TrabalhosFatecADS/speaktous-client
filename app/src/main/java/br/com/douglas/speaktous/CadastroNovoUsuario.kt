@@ -1,38 +1,30 @@
 package br.com.douglas.speaktous
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
+import br.com.douglas.speaktous.service.PessoaService
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.ExecutionException
 
 
-class CadastroNovoUsuario : AppCompatActivity() {
+open class CadastroNovoUsuario : AppCompatActivity() {
 
-    var edtLogin: EditText? = null
-    internal var edtSenha: EditText? = null
-    internal var edtCSenha: EditText? = null
-    internal var btnCadastrar: Button? = null
-    internal var textTermosdeUso: TextView? = null
-    internal var cbTermos: CheckBox? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+   @RequiresApi(Build.VERSION_CODES.O)
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastro_novo_usuario)
-        supportActionBar!!.hide() //Tirar a Barra do Nome do Projeto
 
-        edtLogin = findViewById<View>(R.id.edtLogin) as? EditText
-        edtSenha = findViewById<View>(R.id.edtSenha) as? EditText
-        edtCSenha = findViewById<View>(R.id.edtCSenha) as? EditText
+       setContentView(R.layout.activity_cadastro_novo_usuario)
+       supportActionBar!!.hide() //Tirar a Barra do Nome do Projeto
 
-        btnCadastrar = findViewById<View>(R.id.btnCadastrar) as Button
 
-        textTermosdeUso = findViewById<View>(R.id.textTermosdeUso) as TextView
-
-        cbTermos = findViewById<View>(R.id.cbTermos) as CheckBox
+       var btnCadastrar = findViewById<Button>(R.id.btnCadastrar)
+       var textTermosdeUso = findViewById<TextView>(R.id.textTermosdeUso)
 
 
         // Texto Clique Aqui! -- Chama tela CadastroNovoUsuario
@@ -40,5 +32,70 @@ class CadastroNovoUsuario : AppCompatActivity() {
             val chamaTela = Intent(this@CadastroNovoUsuario, TermosUso::class.java)
             startActivity(chamaTela)
         }
+
+        btnCadastrar!!.setOnClickListener {
+            try {
+                var edtEmail = findViewById<EditText>(R.id.editEmail)
+                var edtSenha = findViewById<EditText>(R.id.edtSenha)
+                var edtCSenha = findViewById<EditText>(R.id.edtCSenha)
+                var vcbTermos = findViewById<View>(R.id.cbTermos) as CheckBox
+
+
+                var txtEmail = edtEmail.text
+                var txtSenha = edtSenha.text
+                var txtCSenha = edtCSenha.text
+                var chkTermo = vcbTermos.isChecked
+
+                if (txtEmail.isBlank() || !validateEmailFormat(txtEmail.toString())){
+                    alert("Informe um email valido")
+                    throw Exception("o campo email não foi informado")
+                }
+
+                if (txtSenha.length < 4){
+                    alert("A senha deve ter no minimo 4 letras ou numeros")
+                    throw Exception("Senha nao informada corretamente")
+                }
+
+                if (txtSenha.toString() != txtCSenha.toString()){
+                    alert("a confirmação da senha nao confere!")
+                    throw Exception("Confirmação de senha invalida")
+                }
+
+                if (!chkTermo){
+                    alert("Voce precisa concordar com os termos de uso")
+                    throw Exception("não houve concordancia com o termo de uso")
+                }
+
+                val todaysDate = Date()
+                val df = SimpleDateFormat("dd/MM/yyyy")
+                val dtHoje = df.format(todaysDate)
+
+                val poessoaService = PessoaService(null,"nome", "user", txtSenha.toString(), txtEmail.toString(), dtHoje,1)
+
+                poessoaService.execute()
+
+            }catch (e: ExecutionException){
+                e.printStackTrace()
+            }
+            catch(e: Exception){
+                e.printStackTrace()
+            }
+
+
+        }
+    }
+
+
+    fun alert(s: String) {
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show()
+    }
+
+
+
+
+    fun validateEmailFormat(email: String): Boolean {
+        return if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            true
+        } else false
     }
 }
