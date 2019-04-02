@@ -12,9 +12,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Scanner;
 
 public class PessoaService extends AsyncTask<Void,Void, Pessoa> {
 
+    private final String urlBase = "http://192.168.0.17:8080/pessoa/";
     private final Long id;
     private final String nome;
     private final String user;
@@ -22,6 +24,7 @@ public class PessoaService extends AsyncTask<Void,Void, Pessoa> {
     private final String email;
     private final String dtcadastro;
     private final int operacao;
+
 
     public PessoaService(Long id, String nome, String user, String passwd, String email, String dtcadastro, int operacao) {
         this.id = id;
@@ -37,49 +40,71 @@ public class PessoaService extends AsyncTask<Void,Void, Pessoa> {
     @Override
     protected Pessoa doInBackground(Void... voids) {
         Pessoa pessoa = new Pessoa();
+        pessoa.setPasswd(passwd);
+        pessoa.setEmail(email);
+        pessoa.setDtcadastro(dtcadastro);
         if (operacao == 1) {
-            //pessoa.setNome(nome);
-            //pessoa.setUser(user);
-            pessoa.setPasswd(passwd);
-            pessoa.setEmail(email);
-            pessoa.setDtcadastro(dtcadastro);
             try {
                 sendPost(pessoa);
             } catch (MinhaException e) {
                 e.printStackTrace();
             }
         }
+        if(operacao == 2){
+            try {
+                pessoa = login(pessoa);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return pessoa;
+    }
+
+    private Pessoa login(Pessoa pessoa) {
+        StringBuilder resposta = new StringBuilder();
+        Pessoa retorno = new Pessoa();
+        try {
+            URL url = new URL(urlBase + "login/?email=" + this.email + "&passwd=" + this.passwd );//+ "/json/");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept","application/json");
+            connection.setConnectTimeout(5000);
+            connection.connect();
+
+            Scanner scanner = new Scanner(url.openStream());
+            while(scanner.hasNext()){
+                resposta.append(scanner.next());
+            }
+            Gson gson = new Gson();
+            // Staff staff = gson.fromJson(reader, Staff.class);
+            retorno = gson.fromJson(resposta.toString(),Pessoa.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return retorno;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public int sendPost(Pessoa pessoa) throws MinhaException {
 
         try {
-            // Cria um objeto HttpURLConnection:
-            HttpURLConnection request = (HttpURLConnection) new URL("http://192.168.0.17:8080/pessoa/").openConnection();
+            HttpURLConnection request = (HttpURLConnection) new URL(urlBase).openConnection();
 
             try {
-                // Define que a conexão pode enviar informações e obtê-las de volta:
                 request.setDoOutput(true);
                 request.setDoInput(true);
 
-                // Define o content-type:
                 request.setRequestProperty("Content-Type", "application/json");
 
-                // Define o método da requisição:
                 request.setRequestMethod("POST");
 
-                // Conecta na URL:
                 request.connect();
 
                 Gson gson = new Gson();
-                // Escreve o objeto JSON usando o OutputStream da requisição:
                 try (OutputStream outputStream = request.getOutputStream()) {
                     outputStream.write(gson.toJson(pessoa, Pessoa.class).getBytes("UTF-8"));
                 }
 
-                // Retorno da operação 200 sucesso
                 return request.getResponseCode();
             } finally {
                 request.disconnect();

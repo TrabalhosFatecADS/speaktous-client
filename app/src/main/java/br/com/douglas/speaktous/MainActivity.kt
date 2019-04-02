@@ -7,6 +7,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import br.com.douglas.speaktous.model.Pessoa
+import br.com.douglas.speaktous.service.PessoaService
+import br.com.douglas.speaktous.util.getMd5
+import br.com.douglas.speaktous.util.validateEmailFormat
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar!!.hide() //Tirar a Barra do Nome do Projeto
 
-
         edtLogin = findViewById<View>(R.id.edtLogin) as EditText
         edtSenha = findViewById<View>(R.id.edtSenha) as EditText
         btnEntrar = findViewById<View>(R.id.btnEntrar) as Button
@@ -35,6 +39,45 @@ class MainActivity : AppCompatActivity() {
             startActivity(chamaTela)
         }
 
+        this.btnEntrar!!.setOnClickListener {
+
+            var txtEmail = edtLogin!!.text
+            var txtSenha = edtSenha!!.text
+
+            try {
+                if (txtEmail.isBlank() || !validateEmailFormat(txtEmail.toString())){
+                    alert("Informe um email valido")
+                    throw Exception("o campo email não foi informado")
+                }
+                if (txtSenha.length < 4){
+                    alert("A senha deve ter no minimo 4 letras ou numeros")
+                    throw Exception("Senha nao informada corretamente")
+                }
+
+                val pessoaService = PessoaService(null,null, null, getMd5(txtSenha.toString()), txtEmail.toString(), null,2)
+
+                var xtpo: Pessoa? = null
+                xtpo = pessoaService.execute().get()
+
+                if (xtpo.id == null){
+                    alert("erro no login")
+                } else{
+                    alert("Clicou entrar")
+                }
+
+
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+
+
+
+
+        }
+    }
+
+    fun alert(s: String) {
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show()
     }
 }
 
