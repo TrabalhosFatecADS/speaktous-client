@@ -59,13 +59,11 @@ class MainActivity : AppCompatActivity() {
                 var xtpo: Pessoa? = null
                 xtpo = pessoaService.execute().get()
 
-                if (xtpo.id == null){
-                    alert("Usuario ou senha incorreto!")
-                } else{
-                    alert("Clicou entrar")
+                if (xtpo.id == null) {
+                    alert("usuario ou senha incorretos!")
+                    throw Exception("usuario ou senha incorretos!")
                 }
-
-
+                alert("Clicou entrar")
             }catch (e: Exception){
                 e.printStackTrace()
             }
