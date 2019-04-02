@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 xtpo = pessoaService.execute().get()
 
                 if (xtpo.id == null){
-                    alert("erro no login")
+                    alert("Usuario ou senha incorreto!")
                 } else{
                     alert("Clicou entrar")
                 }
