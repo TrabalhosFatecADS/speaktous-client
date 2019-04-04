@@ -18,10 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".CadastroNovoUsuario">
-        </activity>
-        <activity android:name=".TermosUso">
-        </activity>
+        <activity android:name=".CadastroNovoUsuario"/>
+        <activity android:name=".TermosUso"/>
+        <activity android:name=".Feed"/>
+        <activity android:name=".LinksUteis"/>
+        <activity android:name=".TelefonesUteis"/>
     </application>
 
 </manifest>

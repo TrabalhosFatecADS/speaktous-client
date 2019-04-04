@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import br.com.douglas.speaktous.model.LoginGlobal
 import br.com.douglas.speaktous.model.Pessoa
 import br.com.douglas.speaktous.service.PessoaService
 import br.com.douglas.speaktous.util.getMd5
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar!!.hide() //Tirar a Barra do Nome do Projeto
+
 
         edtLogin = findViewById<View>(R.id.edtLogin) as EditText
         edtSenha = findViewById<View>(R.id.edtSenha) as EditText
@@ -56,14 +58,18 @@ class MainActivity : AppCompatActivity() {
 
                 val pessoaService = PessoaService(null,null, null, getMd5(txtSenha.toString()), txtEmail.toString(), null,2)
 
-                var xtpo: Pessoa? = null
-                xtpo = pessoaService.execute().get()
+                var login: Pessoa = pessoaService.execute().get()
 
-                if (xtpo.id == null) {
+                if (login.id == null) {
                     alert("usuario ou senha incorretos!")
                     throw Exception("usuario ou senha incorretos!")
                 }
-                alert("Clicou entrar")
+
+                var loginGlobal = LoginGlobal(login.id,login.nome,login.user,login.email,login.passwd,login.dtcadastro)
+
+                val chamaTela = Intent(this, Feed::class.java)
+                startActivity(chamaTela)
+
             }catch (e: Exception){
                 e.printStackTrace()
             }
