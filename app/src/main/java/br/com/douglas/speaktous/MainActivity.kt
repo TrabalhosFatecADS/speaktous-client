@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             var txtSenha = edtSenha!!.text
 
             try {
+
                 if (txtEmail.isBlank() || !validateEmailFormat(txtEmail.toString())){
                     alert("Informe um email valido")
                     throw Exception("o campo email não foi informado")
