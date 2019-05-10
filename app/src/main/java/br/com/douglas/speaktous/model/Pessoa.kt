@@ -7,13 +7,24 @@ class Pessoa: Serializable{
 
     var id: Long? = null
     var nome: String? = null
-    var user: String? = null
-    var passwd: String? = null
+    var usuario: String? = null
+    var senha: String? = null
     var email: String? = null
-    var dtcadastro: String? = null
+    var dtCadastro: String? = null
 
-    //teste github
+    /*
+     private int id;
 
-    //github teste
+    private String nome;
+
+    private String usuario;
+
+    private String senha;
+
+    private String email;
+
+    private Date dtCadastro;
+     */
+
 
 }

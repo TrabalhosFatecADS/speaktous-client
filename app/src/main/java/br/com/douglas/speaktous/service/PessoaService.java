@@ -40,9 +40,9 @@ public class PessoaService extends AsyncTask<Void,Void, Pessoa> {
     @Override
     protected Pessoa doInBackground(Void... voids) {
         Pessoa pessoa = new Pessoa();
-        pessoa.setPasswd(passwd);
+        pessoa.setSenha(passwd);
         pessoa.setEmail(email);
-        pessoa.setDtcadastro(dtcadastro);
+        pessoa.setDtCadastro(dtcadastro);
         if (operacao == 1) {
             try {
                 sendPost(pessoa);

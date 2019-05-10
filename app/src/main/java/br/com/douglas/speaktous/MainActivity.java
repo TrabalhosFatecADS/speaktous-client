@@ -26,7 +26,6 @@ class MainActivity extends AppCompatActivity {
     private EditText edtLogin, edtSenha;
     private Button btnEntrar;
     private TextView txtCadastrar;
-    private String auth;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +56,15 @@ class MainActivity extends AppCompatActivity {
                         JWTToken token = response.body();
 
                         if (token != null) {
-                            alert(token.getToken());
+
+                            Bundle params = new Bundle();
+
+                            params.putString("token", token.getToken());
 
                             Intent intent = new Intent(MainActivity.this, Feed.class);
+                            intent.putExtras(params);
                             startActivity(intent);
-
-                            auth = token.getToken();
-
+/*
                             Call<JWTUsers> jwtUsersCall = apiCall.getUser("Bearer "+auth);
 
                             jwtUsersCall.enqueue(new Callback<JWTUsers>() {
@@ -77,8 +78,7 @@ class MainActivity extends AppCompatActivity {
                                     alert("Faio!!!!!!!!!");
                                 }
                             });
-
-
+*/
                         } else {
                             alert("Token invalido!");
                         }
@@ -96,7 +96,7 @@ class MainActivity extends AppCompatActivity {
         txtCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent chamaTela = new Intent(MainActivity.this, CadastroNovoUsuario.class);
+                Intent chamaTela = new Intent(MainActivity.this, CadastroUsuario.class);
                 startActivity(chamaTela);
             }
         });
