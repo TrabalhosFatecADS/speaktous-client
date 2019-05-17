@@ -68,15 +68,15 @@ public class CadastroUsuario extends AppCompatActivity {
                     pessoa.setEmail(edtEmail.getText().toString());
                     pessoa.setSenha(edtSenha.getText().toString());
 
-                    Date todaysDate = new Date();
-                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                    //pessoa.setDtCadastro(df.format(todaysDate));
-
                     Call<JWTToken> jwtTokenCall = apiCall.salvaPessoa(pessoa);
 
                     jwtTokenCall.enqueue(new Callback<JWTToken>() {
                         @Override
                         public void onResponse(Call<JWTToken> call, Response<JWTToken> response) {
+                            edtEmail.getText().clear();
+                            edtSenha.getText().clear();
+                            edtCSenha.getText().clear();
+                            vcbTermos.setChecked(false);
                             alert("Salvou.................");
                         }
 
@@ -89,8 +89,6 @@ public class CadastroUsuario extends AppCompatActivity {
                 }catch (Exception ex){
                     ex.getMessage();
                 }
-
-                alert("Funfo...............");
             }
         });
 

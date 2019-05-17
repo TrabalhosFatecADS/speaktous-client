@@ -32,6 +32,15 @@ public class Feed extends AppCompatActivity {
         txtFone = (TextView)findViewById(R.id.txtFone);
         txtLink = (TextView)findViewById(R.id.txtLink);
 
+        // Botão Perfil -- Chama tela Minhas Publicações
+        btnFeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent chamaTela = new Intent(Feed.this, NovaPostagem.class);
+                startActivity(chamaTela);
+            }
+        });
+
 
         // Botão Perfil -- Chama tela Minhas Publicações
         btnPerfil.setOnClickListener(new View.OnClickListener() {

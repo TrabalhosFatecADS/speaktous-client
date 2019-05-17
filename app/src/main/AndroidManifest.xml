@@ -11,6 +11,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".NovaPostagem">
+        </activity>
         <activity android:name=".CadastroUsuario">
         </activity>
         <activity android:name=".MainActivity">
@@ -20,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".CadastroNovoUsuario"/>
         <activity android:name=".TermosUso"/>
         <activity android:name=".Feed"/>
         <activity android:name=".LinksUteis"/>

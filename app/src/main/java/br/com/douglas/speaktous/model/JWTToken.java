@@ -11,6 +11,7 @@ public class JWTToken {
     private String token;
     private int status;
     private String message;
+    private Pessoa pessoa;
 
     public JWTToken(String token) {
     }
@@ -31,6 +32,14 @@ public class JWTToken {
         this.status = status;
     }
 
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -38,5 +47,6 @@ public class JWTToken {
     public void setMessage(String message) {
         this.message = message;
     }
+
 
 }
