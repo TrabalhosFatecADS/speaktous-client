@@ -60,25 +60,12 @@ class MainActivity extends AppCompatActivity {
                             Bundle params = new Bundle();
 
                             params.putString("token", token.getToken());
+                            params.putString("user", edtLogin.getText().toString());
 
                             Intent intent = new Intent(MainActivity.this, Feed.class);
                             intent.putExtras(params);
                             startActivity(intent);
-/*
-                            Call<JWTUsers> jwtUsersCall = apiCall.getUser("Bearer "+auth);
 
-                            jwtUsersCall.enqueue(new Callback<JWTUsers>() {
-                                @Override
-                                public void onResponse(Call<JWTUsers> call, Response<JWTUsers> response) {
-                                    alert(String.valueOf(response.body().getStatus()));
-                                }
-
-                                @Override
-                                public void onFailure(Call<JWTUsers> call, Throwable t) {
-                                    alert("Faio!!!!!!!!!");
-                                }
-                            });
-*/
                         } else {
                             alert("Token invalido!");
                         }

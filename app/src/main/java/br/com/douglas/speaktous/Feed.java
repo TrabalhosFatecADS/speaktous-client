@@ -24,6 +24,7 @@ public class Feed extends AppCompatActivity {
             Bundle params = intent.getExtras();
             if (params != null){
                 alert("Token....: "+params.getString("token"));
+                alert("Usuario...."+params.getString("user"));
             }
         }
 
@@ -32,11 +33,14 @@ public class Feed extends AppCompatActivity {
         txtFone = (TextView)findViewById(R.id.txtFone);
         txtLink = (TextView)findViewById(R.id.txtLink);
 
-        // Botão Perfil -- Chama tela Minhas Publicações
+       // Botão Perfil -- Chama tela Minhas Publicações
         btnFeed.setOnClickListener(new View.OnClickListener() {
-            @Override
+            Intent intent = getIntent();
+            Bundle params = intent.getExtras();
+             @Override
             public void onClick(View view) {
                 Intent chamaTela = new Intent(Feed.this, NovaPostagem.class);
+                chamaTela.putExtras(params);
                 startActivity(chamaTela);
             }
         });
