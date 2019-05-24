@@ -23,8 +23,8 @@ public class Feed extends AppCompatActivity {
         if (intent != null) {
             Bundle params = intent.getExtras();
             if (params != null){
-                alert("Token....: "+params.getString("token"));
-                alert("Usuario...."+params.getString("user"));
+               // alert("Token....: "+params.getString("token"));
+               // alert("Usuario...."+params.getString("user"));
             }
         }
 
@@ -50,8 +50,9 @@ public class Feed extends AppCompatActivity {
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent chamaTela = new Intent(Feed.this, Feed.class);
-                startActivity(chamaTela);
+                //Intent chamaTela = new Intent(Feed.this, Feed.class);
+                //startActivity(chamaTela);
+                alert("Botão Minhas Publicaçoes");
             }
         });
 
